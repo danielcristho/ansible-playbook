@@ -1,0 +1,5 @@
+[server 1]
+ubuntu ansible_user = ringgo
+
+[server 2]
+debian ansible_user = ringgo

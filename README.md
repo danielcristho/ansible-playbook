@@ -1,1 +1,1 @@
-# ansible-playbook
+## simple ansible playbook for server

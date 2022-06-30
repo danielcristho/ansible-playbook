@@ -1,5 +1,8 @@
-[server 1]
-ubuntu ansible_user = ringgo
+[all:vars]
+ansible_user = root
 
-[server 2]
-debian ansible_user = ringgo
+[srv1]
+159.223.83.251
+
+[srv2]
+104.248.159.236

@@ -14,6 +14,22 @@
         - php8.0-fpm
         - php8.0-common
 
+    - name: nginx host  
+      template:
+        src : site.j2
+        dest: /etc/nginx/sites-enabled/site
+      notify: restart nginx
+
+    - name: create web-root directory
+      file:
+        path: /var/www/site/index.php
+        state: directory
+
+    - name: upload index.html
+      template:
+        src: index.php.j2
+        dest: /var/www/site/index.php    
+
 - hosts: srv2
   become: true
   tasks:

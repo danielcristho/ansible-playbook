@@ -1,0 +1,18 @@
+server {
+    root /var/www/site/index.php
+
+    index index.php index.html index.htmk index.nginx-debian.html;
+
+    server localhost;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+
+error_log /var/log/nginx/site_error.log;
+access_log /var/log/nginx/site_access.log;

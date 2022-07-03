@@ -23,6 +23,9 @@
         - php8.0-pgsql
         - php8.0-common
         - composer
+        - ca-certificates
+        - apt-transport-https
+        - software-properties-common
     
     - name: install postgresql
       apt: 

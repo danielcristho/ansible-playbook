@@ -1,0 +1,21 @@
+server {
+    listen 80;
+    root /var/www/onomi/src/public;
+    index index.php index.html index.html index.nginx-debian.html
+
+    server_name localhost
+
+    location / { 
+            try_file $uri $uri/ / index.php?$query_string;
+    
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php.8.0-fpm.sock;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}

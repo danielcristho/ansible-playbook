@@ -6,4 +6,4 @@ db_user: super
 db_pass: '*188CAF6836626F0D76BB722922B3BF7B12BE7B52' #superdb
 
 #Nginx
-root_dir: onomi
+#root_dir: onomi

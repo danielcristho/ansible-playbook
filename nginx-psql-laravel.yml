@@ -2,10 +2,11 @@
 - hosts: srv1
   become: true
   tasks:
-    - name: add repo
-      shell: | 
-        sudo add-apt-repository ppa:ondrej/php
-        wget w --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+    - name: add php repository
+      shell: sudo add-apt-repository ppa:ondrej/php -y
+
+    - name: add postgresql repository
+      shell: wget wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 
     - name: add command
       shell: echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/postgresql-pgdg.list > /dev/null
@@ -14,9 +15,9 @@
       apt:
         update_cache: yes
 
-    - name: set timezone
-      timezone:
-        name: Asia/Jakarta    
+    - name: install postgresql
+      apt: 
+        name: ['postgresql-14'] 
 
     - name: install nginx&PHP
       apt:
@@ -29,26 +30,27 @@
         - ca-certificates
         - apt-transport-https
         - software-properties-common
-    
-    - name: install postgresql
-      apt: 
-        name: ['postgresql-14']
 
+    - name: set timezone
+      timezone:
+        name: Asia/Jakarta       
 
     - name: Setup nginx
       template:
         src: onomi.j2
-        dest: /etc/nginx/site-available/{{ root_dir }}
-        shell: ln -s /etc/nginx/site-available/{{ root_dir }} /etc/nginx/site-enabled/  
+        dest: /etc/nginx/sites-available/onomi
+        #shell: ln -s /etc/nginx/site-available/onomi /etc/nginx/site-enabled/  
 
     - name: clone Laravel repository 
       git:
         repo: https://github.com/laravel/laravel.git
-        dest: /var/www/
-        clone: yes
+        dest: /var/www/laravel
         update: yes
-        shell: |
-          mv laravel {{ root_dir }}
-          cd {{ root_dir }}
-        sudo: yes
-        sudo_user: www:data      
+      register: cloned
+
+    - name: setup Laravel
+      shell: |
+          mv laravel onomi
+          cd onomi
+          sudo: yes
+          sudo_user: www:data        

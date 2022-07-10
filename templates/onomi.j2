@@ -1,12 +1,12 @@
 server {
     listen 80;
     root /var/www/onomi/src/public;
-    index index.php index.html index.html index.nginx-debian.html
+    index index.php index.html index.html index.nginx-debian.html;
 
-    server_name localhost
+    server_name localhost;
 
-    location / { 
-            try_file $uri $uri/ / index.php?$query_string;
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
     
     }
 

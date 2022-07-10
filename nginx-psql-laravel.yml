@@ -50,6 +50,7 @@
 
     - name: setup Laravel
       shell: |
+          cd /var/www/
           mv laravel onomi
           cd onomi
           sudo: yes
